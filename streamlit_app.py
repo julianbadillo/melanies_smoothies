@@ -44,7 +44,7 @@ if ingredients_list:
             "fat": 0.2,
             "sugar": 200,
             "carbohydrates": 30,
-            "protein", 0.5,
+            "protein": 0.5,
         }
         st.header(f"{fc} Nutrition data")
         fv_df = st.dataframe(data=fruit_data, use_container_width=True)
