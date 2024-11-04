@@ -20,7 +20,7 @@ st.write(
     """Choose the fruits you want in your custom Smoothie."""
 )
 
-my_dataframe = session.table("fruit_options")
+my_dataframe = session.table("fruit_options").select(col('FRUIT_NAME'), col('SEARCH_ON'))
 # st.dataframe(data=my_dataframe, use_container_width=True)
 # pandas dataframe
 pd_df = my_dataframe.to_pandas()
