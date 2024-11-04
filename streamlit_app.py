@@ -1,6 +1,7 @@
 
 # Import python packages
 import streamlit as st
+import pandas as pd
 # from snowflake.snowpark.context import get_active_session
 from snowflake.snowpark.functions import col
 import requests
@@ -21,6 +22,8 @@ st.write(
 
 my_dataframe = session.table("fruit_options").select(col('FRUIT_NAME'))
 # st.dataframe(data=my_dataframe, use_container_width=True)
+# pandas dataframe
+pd_df = my_dataframe.to_pandas()
 
 ingredients_list = st.multiselect("Chooose up to 5 ingredients:",
                      my_dataframe)
@@ -35,6 +38,8 @@ if ingredients_list:
     ingredients_str = ''
     for fc in ingredients_list:
         ingredients_str += f'{fc} '
+        # get the right fruit to search on
+        search_n = 
         # Display nutrition info
         # fruityvice_resp = requests.get(f"https://fruitvice.com/api/fruit/{fc}")
         # fruit_data = fruityvice_resp.json()
