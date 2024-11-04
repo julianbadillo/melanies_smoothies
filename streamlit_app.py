@@ -35,6 +35,19 @@ if ingredients_list:
     ingredients_str = ''
     for fc in ingredients_list:
         ingredients_str += f'{fc} '
+        # Display nutrition info
+        # fruityvice_resp = requests.get(f"https://fruitvice.com/api/fruit/{fc}")
+        # fruit_data = fruityvice_resp.json()
+        fruit_data = {
+            "name": fc,
+            "calories": 123,
+            "fat": 0.2,
+            "sugar": 200,
+            "carbohydrates": 30,
+            "protein", 0.5,
+        }
+        st.header(f"{fc} Nutrition data")
+        fv_df = st.dataframe(data=fruit_data, use_container_width=True)
     # st.text(ingredients_str)
 
     insert_stm = f"""INSERT INTO orders(ingredients)
