@@ -16,6 +16,8 @@ session = cnx.session()
 
 # Write directly to the app
 st.title(":cup_with_straw: Customize Your Smoothie! :cup_with_straw:")
+name_on_order = st.text_input('Name on Smoothie:')
+st.write(f'The name on your Smoothie will be: {name_on_order}')
 st.write(
     """Choose the fruits you want in your custom Smoothie."""
 )
@@ -26,7 +28,8 @@ my_dataframe = session.table("fruit_options").select(col('FRUIT_NAME'), col('SEA
 pd_df = my_dataframe.to_pandas()
 
 ingredients_list = st.multiselect("Chooose up to 5 ingredients:",
-                     my_dataframe)
+                     my_dataframe,
+                     max_selections=5)
 
 if ingredients_list:
     # Structure
@@ -62,13 +65,13 @@ if ingredients_list:
         fv_df = st.dataframe(data=fruit_data, use_container_width=True)
     # st.text(ingredients_str)
 
-    insert_stm = f"""INSERT INTO orders(ingredients)
-                VALUES ('{ingredients_str}')"""
+    insert_stm = f"""INSERT INTO orders(ingredients, name_on_order)
+                VALUES ('{ingredients_str}', '{name_on_order}')"""
     # st.write(insert_stm)
     if insert := st.button('Submit Order'):
         r = session.sql(insert_stm).collect()
         # st.write(r)
-        st.success('You Smoothe is ordered!', icon="✅")
+        st.success(f'You Smoothe is ordered, {name_on_order}!', icon="✅")
     
     
         
