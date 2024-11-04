@@ -38,18 +38,25 @@ if ingredients_list:
     ingredients_str = ''
     for fc in ingredients_list:
         ingredients_str += f'{fc} '
-        # get the right fruit to search on
-        search_n = 
+        # get the right fruit to search on - using pandas selector / projection
+        search_on = pd_df.loc[pd_df['FRUIT_NAME'] == fc, 'SEARCH_ON'].iloc[0]
+        st.write(f'The search value for {fc} is {search_on}')
         # Display nutrition info
-        # fruityvice_resp = requests.get(f"https://fruitvice.com/api/fruit/{fc}")
+        # fruityvice_resp = requests.get(f"https://fruitvice.com/api/fruit/{search_on}")
         # fruit_data = fruityvice_resp.json()
         fruit_data = {
             "name": fc,
-            "calories": 123,
-            "fat": 0.2,
-            "sugar": 200,
-            "carbohydrates": 30,
-            "protein": 0.5,
+            "id": 12345,
+            "family": "Something",
+            "order": "Somethinis",
+            "genus": "Somethinus",
+            "nutritions": {
+                "calories": 123,
+                "fat": 0.2,
+                "sugar": 200,
+                "carbohydrates": 30,
+                "protein": 0.5,
+            }
         }
         st.header(f"{fc} Nutrition data")
         fv_df = st.dataframe(data=fruit_data, use_container_width=True)
